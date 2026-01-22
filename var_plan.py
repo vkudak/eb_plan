@@ -1,6 +1,3 @@
-# Make print work the same in all versions of Python, set up numpy,
-# matplotlib, and use a nicer set of plot parameters:
-# from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy.visualization import astropy_mpl_style
@@ -11,12 +8,13 @@ import datetime
 import pytz
 import sys
 import matplotlib.dates as mdates
-from astropy.coordinates import get_moon, get_sun
+from astropy.coordinates import get_body
+# from astropy.coordinates import get_moon, get_sun
 # from astropy.utils import conf
 
 
 plt.style.use(astropy_mpl_style)
-print sys.getrecursionlimit()
+# print(sys.getrecursionlimit())
 sys.setrecursionlimit(5500)
 
 
@@ -135,8 +133,11 @@ for t in times_this_to_next_night:
 
 
 frame_this_to_next_night = AltAz(obstime=times_this_to_next_night, location=Derenivka)
-sunaltazs_this_to_next_night = get_sun(times_this_to_next_night).transform_to(frame_this_to_next_night)
-moon_this_to_next_night = get_moon(times_this_to_next_night)
+# sunaltazs_this_to_next_night = get_sun(times_this_to_next_night).transform_to(frame_this_to_next_night)
+# moon_this_to_next_night = get_moon(times_this_to_next_night)
+sunaltazs_this_to_next_night = get_body("sun", times_this_to_next_night).transform_to(frame_this_to_next_night)
+moon_this_to_next_night = get_body("moon", times_this_to_next_night)
+
 moonaltazs_this_to_next_night = moon_this_to_next_night.transform_to(frame_this_to_next_night)
 #########################################
 
